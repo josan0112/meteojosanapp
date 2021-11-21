@@ -152,5 +152,11 @@ body {
     width: 80%;
     height: 30px;
   }
+  body {
+    background-size: 1800px;
+    background-position-x: -150px;
+    background-position-y: -200px;
+    background-repeat: none;
+  }
 }
 /*# sourceMappingURL=style.css.map */
