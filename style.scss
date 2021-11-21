@@ -101,3 +101,17 @@ body{
         }
     }
 }
+
+@media (max-width: 438px) {
+    .main{
+        width: 300px;
+        .form{
+            width: 90%;
+            &__text{
+                width: 80%;
+                height: 30px;
+            }
+        }
+    }
+  }
+  

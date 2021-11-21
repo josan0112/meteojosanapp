@@ -140,4 +140,17 @@ body {
 .main .weather .info div__speed {
   text-align: center;
 }
+
+@media (max-width: 438px) {
+  .main {
+    width: 300px;
+  }
+  .main .form {
+    width: 90%;
+  }
+  .main .form__text {
+    width: 80%;
+    height: 30px;
+  }
+}
 /*# sourceMappingURL=style.css.map */
