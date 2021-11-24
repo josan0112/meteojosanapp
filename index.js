@@ -9,6 +9,24 @@ let desc_text = document.querySelector(".info__description");
 let humidity_text = document.querySelector(".info__humidity");
 let speed_text = document.querySelector(".info__speed");
 
+//FUNCIONES BASICAS
+function toCelsius(t){
+    let temp= t-273;
+    return temp.toFixed(1);
+}
+
+//CLASES
+class Tiempo {
+    constructor(data){
+        this.name= data.name;
+        this.icon =`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+        this.temp = toCelsius(data.main.temp);
+        this.desc =data.weather[0].description;
+        this.humidity = data.main.humidity;
+        this.speed = data.wind.speed;
+    }
+}
+
 //FUNCIONES API
 const get_api_extra = (ciudad)=>{
     fetch(`https://api.opencagedata.com/geocode/v1/json?q=${ciudad}&key=425e5c271ab04469813d230891ea1ed8&pretty=1`)
@@ -16,31 +34,28 @@ const get_api_extra = (ciudad)=>{
         .then((data)=>{
             let lat=data.results[0].bounds.northeast.lat;
             let long=data.results[0].bounds.northeast.lng;
-            return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat.toFixed(2)}&lon=${long.toFixed(2)}&exclude=minutely&appid=cbb30bfd6c4fa4fe10d2f528df2060c3`);
+            console.log(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat.toFixed(2)}&lon=${long.toFixed(2)}&exclude=minutely&appid=cbb30bfd6c4fa4fe10d2f528df2060c3`);
         })
 };
 const get_api = (ciudad)=>{
     return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=cbb30bfd6c4fa4fe10d2f528df2060c3`);
 };
 //FUNCIONES VISTA
+function escribirMain(tiempoHoy){
+    titulo_ciudad.innerText = tiempoHoy.name;
+    icono.setAttribute("src",tiempoHoy.icon);
+    temp_text.innerText=`${tiempoHoy.temp} ºC`;
+    desc_text.innerText=tiempoHoy.desc;
+    humidity_text.innerText=`💦 ${tiempoHoy.humidity}%`;
+    speed_text.innerText= `🍃 ${tiempoHoy.speed} km/h`;
+}
 function buscar(){
     let ciudad = search_text.value;
     get_api(ciudad)
         .then(response => response.json())
         .then(data => {
-            let name= data.name;
-            let icon =`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-            let temp_celsius = data.main.temp-273;
-            let temp = temp_celsius.toFixed(1);
-            let desc = data.weather[0].description;
-            let humidity = data.main.humidity;
-            let speed = data.wind.speed;
-            titulo_ciudad.innerText = name;
-            icono.setAttribute("src",icon);
-            temp_text.innerText=`${temp} ºC`;
-            desc_text.innerText=desc;
-            humidity_text.innerText=`💦 ${humidity}%`;
-            speed_text.innerText= `🍃 ${speed} km/h`;
+            let tiempoHoy =new Tiempo(data);
+            escribirMain(tiempoHoy);
         });
     get_api_extra(ciudad);
 }
