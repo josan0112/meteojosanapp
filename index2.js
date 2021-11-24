@@ -1,4 +1,3 @@
-//DOM VARIABLES
 const formulario = document.querySelector(".form");
 const btn_search = document.querySelector(".form__search");
 let search_text = document.querySelector(".form__text");
@@ -8,21 +7,15 @@ let temp_text = document.querySelector(".info__temp");
 let desc_text = document.querySelector(".info__description");
 let humidity_text = document.querySelector(".info__humidity");
 let speed_text = document.querySelector(".info__speed");
-
-//FUNCIONES API
-const get_api_extra = (ciudad)=>{
+const get_api = (ciudad)=>{
     fetch(`https://api.opencagedata.com/geocode/v1/json?q=${ciudad}&key=425e5c271ab04469813d230891ea1ed8&pretty=1`)
         .then(response => response.json())
         .then((data)=>{
             let lat=data.results[0].bounds.northeast.lat;
             let long=data.results[0].bounds.northeast.lng;
-            return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat.toFixed(2)}&lon=${long.toFixed(2)}&exclude=minutely&appid=cbb30bfd6c4fa4fe10d2f528df2060c3`);
+            console.log(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat.toFixed(2)}&lon=${long.toFixed(2)}&exclude=minutely&appid=cbb30bfd6c4fa4fe10d2f528df2060c3`)
         })
 };
-const get_api = (ciudad)=>{
-    return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=cbb30bfd6c4fa4fe10d2f528df2060c3`);
-};
-//FUNCIONES VISTA
 function buscar(){
     let ciudad = search_text.value;
     get_api(ciudad)
@@ -42,11 +35,7 @@ function buscar(){
             humidity_text.innerText=`💦 ${humidity}%`;
             speed_text.innerText= `🍃 ${speed} km/h`;
         });
-    get_api_extra(ciudad);
 }
-
-//PRINCIPAL
-
 search_text.addEventListener("keypress", (event)=>{
     if(event.keyCode ==13){
         buscar();
