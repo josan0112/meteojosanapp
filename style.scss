@@ -114,18 +114,22 @@ body{
     &--extra{
         width: 80%;
         margin-top: 5%;
+        background-color: rgba(255, 255, 255, 0.411);
     }
     .extra__grid{
         width: 100%;
         display: grid;
         grid-template-columns: repeat(6,1fr);
+        overflow: hidden;
+        overflow-x: scroll;
         .dia{
             margin: 0px auto;
+            margin: 14px;
             padding: 8%;
-            width: 60%;
+            width: 70px;
             display: flex;
             flex-direction: column;
-            background-color: rgba(0, 0, 0, 0.222);
+            background-color: rgba(71, 71, 71, 0.329);
             border-radius: 10%;
             color: white;
             &__h3{
@@ -133,7 +137,7 @@ body{
                 width: 100%;
                 text-align: center;
                 font-weight: 600;
-                font-size: 1.5em;
+                font-size: 1.2em;
             }
             &__icon{
                 width: 99%;
