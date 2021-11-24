@@ -74,8 +74,8 @@ body{
         &--week{
             margin: 0px;
             margin-bottom: 5%;
-            font-size: 1.5em;
-            font-weight: 600;
+            font-size: 2em;
+            font-weight: 300;
         }
     }
     .weather{
@@ -162,12 +162,14 @@ body{
         .extra__grid{
             width: 100%;
             display: grid;
-            grid-template-columns: repeat(3,1fr);
+            grid-template-columns: repeat(6,1fr);
+            overflow: hidden;
+            overflow-x: scroll;
             .dia{
                 margin: 0px auto;
-                margin: 10%;
+                margin: 14px;
                 padding: 8%;
-                width: 60%;
+                width: 70px;
                 display: flex;
                 flex-direction: column;
                 &__h3{
